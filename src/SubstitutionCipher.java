@@ -7,6 +7,8 @@ public class SubstitutionCipher {
     // variable declaration
 
     HashMap<Character, Double> plainTextFrequencyTable = new HashMap<Character, Double>();
+    HashMap<Character, Double> cipherTextFrequencyTable = new HashMap<Character, Double>();
+
 
     // empty constructor
     SubstitutionCipher() {
@@ -21,13 +23,17 @@ public class SubstitutionCipher {
     // gives freq map for plainText
     // name and filepath
     boolean originalLanguage(String name, String fileName) throws IOException {
-        if(name != null && fileName !=null){
-            if(name != "" && fileName !="" ){
+        if (name != null && fileName != null) {
+            if (name != "" && fileName != "") {
                 Helper helper = new Helper();
                 plainTextFrequencyTable = helper.frequencyTable(fileName);
+
+                // If returned hash map is empty return false
+                if (plainTextFrequencyTable.isEmpty()) {
+                    return false;
+                }
                 System.out.println(plainTextFrequencyTable);
-            }
-            else {
+            } else {
                 // if name or fileName is empty string
                 return false;
             }
@@ -40,7 +46,24 @@ public class SubstitutionCipher {
 
     // gives freq map for cipherText
     // filepath
-    boolean ciphertext(String filename) {
+    boolean ciphertext(String fileName) throws IOException {
+        if (fileName != null) {
+            if (fileName != "") {
+                // creation of helper object, to create a frequency table
+                Helper helper = new Helper();
+                cipherTextFrequencyTable = helper.frequencyTable(fileName);
+
+                // If returned hash map empty return false
+                if (cipherTextFrequencyTable.isEmpty()) {
+                    return false;
+                }
+                System.out.println(cipherTextFrequencyTable);
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
         return true;
     }
 
