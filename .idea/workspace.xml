@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5be1062a-85b0-4a9f-af3e-298728cd5393" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/langB.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/A1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/A1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FrequencyTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SubstitutionCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SubstitutionCipher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cipherA.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cipherA.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lang1_plain.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/lang1_plain.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cipherA.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cipher.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lang1_plain.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/plan.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,13 +36,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/cynos/IdeaProjects/Assignment1-cipherToPlainText"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/cynos/IdeaProjects/Assignment1-cipherToPlainText&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager">
+    <configuration name="A1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="A1" />
+      <module name="Assignment1-cipherToPlainText" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.A1" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -61,6 +78,27 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/FrequencyTable.java</url>
+          <line>173</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/FrequencyTable.java</url>
+          <line>174</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="plainKey" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Assignment1_cipherToPlainText$A1.ic" NAME="A1 Coverage Results" MODIFIED="1664172563361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

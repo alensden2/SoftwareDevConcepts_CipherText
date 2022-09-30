@@ -1,13 +1,20 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SubstitutionCipher {
     // variable declaration
 
     HashMap<Character, Double> plainTextFrequencyTable = new HashMap<Character, Double>();
+    String languageName = null;
     HashMap<Character, Double> cipherTextFrequencyTable = new HashMap<Character, Double>();
+    ArrayList<Character> plainTextKey = new ArrayList<Character>();
+    ArrayList<Character> cipherTextKey = new ArrayList<Character>();
+    String cipherTextLocation = null;
+    String decodedString = null;
+
+    // map to store original lang
+    HashMap<String , HashMap<Character, Double>> originalLanguage = new HashMap<String , HashMap<Character, Double>>();
 
 
     // empty constructor
@@ -23,16 +30,17 @@ public class SubstitutionCipher {
     // gives freq map for plainText
     // name and filepath
     boolean originalLanguage(String name, String fileName) throws IOException {
+        languageName = name;
         if (name != null && fileName != null) {
             if (name != "" && fileName != "") {
-                Helper helper = new Helper();
-                plainTextFrequencyTable = helper.frequencyTable(fileName);
+                FrequencyTable FrequencyTable = new FrequencyTable();
+                plainTextFrequencyTable = FrequencyTable.frequencyTable(fileName);
 
                 // If returned hash map is empty return false
                 if (plainTextFrequencyTable.isEmpty()) {
                     return false;
                 }
-                System.out.println(plainTextFrequencyTable);
+//                System.out.println(plainTextFrequencyTable);
             } else {
                 // if name or fileName is empty string
                 return false;
@@ -49,15 +57,20 @@ public class SubstitutionCipher {
     boolean ciphertext(String fileName) throws IOException {
         if (fileName != null) {
             if (fileName != "") {
-                // creation of helper object, to create a frequency table
-                Helper helper = new Helper();
-                cipherTextFrequencyTable = helper.frequencyTable(fileName);
+                // Stroring the cipher text file location
+                cipherTextLocation = fileName;
+
+                // creation of FrequencyTable object, to create a frequency table
+                FrequencyTable FrequencyTable = new FrequencyTable();
+
+                // linking the current obj to be decrypted
+                cipherTextFrequencyTable = FrequencyTable.frequencyTable(fileName);
 
                 // If returned hash map empty return false
                 if (cipherTextFrequencyTable.isEmpty()) {
                     return false;
                 }
-                System.out.println(cipherTextFrequencyTable);
+//                System.out.println(cipherTextFrequencyTable);
             } else {
                 return false;
             }
@@ -68,9 +81,16 @@ public class SubstitutionCipher {
     }
 
     //decodes with the associated key
-    String decodeText() {
-        String decodedText = "";
-        return decodedText;
+    String decodeText() throws IOException {
+        if (!plainTextFrequencyTable.isEmpty() && !cipherTextFrequencyTable.isEmpty()) {
+            guessKeyFromFrequencies(languageName);
+            FrequencyTable FrequencyTable = new FrequencyTable();
+//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+//            System.out.println(plainTextKey);
+//            System.out.println(cipherTextKey);
+            decodedString = FrequencyTable.decodedString(plainTextKey, cipherTextKey, cipherTextLocation);
+        }
+        return decodedString;
     }
 
     // update internal encryption, put to the map/replace
@@ -92,7 +112,14 @@ public class SubstitutionCipher {
     // makes custom key from matching the freq tables
     // name of the language
     boolean guessKeyFromFrequencies(String language) {
-        return true;
+        if (!plainTextFrequencyTable.isEmpty() && !cipherTextFrequencyTable.isEmpty()) {
+            FrequencyTable frequencyTable = new FrequencyTable();
+            // key mapped according to indexes
+            plainTextKey = frequencyTable.getKeyFromFrequencies(plainTextFrequencyTable);
+            cipherTextKey = frequencyTable.getKeyFromFrequencies(cipherTextFrequencyTable);
+
+        }
+        return false;
     }
 
     String matchLanguage() {
@@ -102,7 +129,7 @@ public class SubstitutionCipher {
 
     String testWorks(String a, String b) throws IOException {
 
-        return "plainTextFrequencyTable works";
+        return a + " " + b;
     }
 
 }
