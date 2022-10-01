@@ -5,22 +5,21 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class FrequencyTable {
-    // Special characters
-
-    ArrayList<Character> decodeCharList = new ArrayList<Character>(
-            List.of('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-                    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z')
-    );
-
 
     HashMap<Character, Double> frequencyTable(String fileName) throws IOException {
+        /*
+        Method 1 (frequencyTable) -  outputs frequency table for given file directory
+        Input (1) - String fileName
+        Returns - hashmap<Character, Double>
+        */
+        // still convert to percentage
+
         // Local variables
         HashMap<Character, Double> charFrequencyTable = new HashMap<Character, Double>();
 
         double newValue = 0;
         double totalFrequencyText = 0;
         double newValueFreq = 0;
-        String firstLine = null;
 
         // Reading File
         File filePath = new File(fileName);
@@ -46,7 +45,6 @@ public class FrequencyTable {
                 char lineByLine = (char) c;
 
                 lineByLine = (char) Character.toLowerCase(c);
-//                System.out.println(lineByLine);
 
                 if (Character.isLetter(lineByLine)) {
                     if (charFrequencyTable.containsKey(lineByLine)) {
@@ -65,23 +63,8 @@ public class FrequencyTable {
 
             for (Map.Entry<Character, Double> setFreqTable : charFrequencyTable.entrySet()) {
                 Double frequencyValue = setFreqTable.getValue();
-//                    System.out.println(frequencyValue);
                 totalFrequencyText += frequencyValue;
             }
-
-/*
-                // if the map already has the ch sKey(lineByLine) && decodeCharList.contains(lineByLine)) {
-                if (charFrequencyTable.containsKey(lineByLine) && decodeCharList.contains(lineByLine)) {
-                    newValue = charFrequencyTable.get(lineByLine) + 1;
-                    charFrequencyTable.put(lineByLine, newValue);
-                }
-                // if the char is not there in the map
-                else if (decodeCharList.contains(lineByLine)) {
-                    double initialFreq = 1;
-                    charFrequencyTable.put(lineByLine, 1D);
-                } else {
-                    // if special char; exclude
-                } */
 
 
         }
@@ -104,12 +87,20 @@ public class FrequencyTable {
             System.out.println("File Path invalid, please avoid space and include '//' in path ex- //home//cynos//IdeaProjects//Assignment1-cipherToPlainText//src//cipher.txt");
             System.out.println(filePath.exists());
         }
-        System.out.println("Freq Table" + charFrequencyTable);
         return charFrequencyTable;
 
     }
 
     ArrayList<Character> getKeyFromFrequencies(HashMap<Character, Double> frequencyTable) {
+
+        /*
+        Method 2 (getKeyFromFrequencies) -  outputs arraylist of characters in decs order occurrence
+        Input (1) - hashmap<Character, Double> frequencyTable
+        Returns - ArrayList<Character>
+        */
+
+        // still got to fix the special cases if plain text char < cipher text char
+
         LinkedHashMap<Character, Double> currentFrequencyTable = new LinkedHashMap<Character, Double>();
         ArrayList<Character> frequencyDescOrder = new ArrayList<Character>();
         // ref - https://stackoverflow.com/questions/1066589/iterate-through-a-hashmap
@@ -151,15 +142,18 @@ public class FrequencyTable {
             frequencyDescOrder.add(iterable.getKey());
         }
 
-
-//        System.out.println(frequencyDescOrder);
-        System.out.println(currentFrequencyTable);
-        System.out.println(frequencyDescOrder);
         return frequencyDescOrder;
     }
 
     // method to return a decoded string -
     String decodedString(ArrayList<Character> plainKey, ArrayList<Character> cipherKey, String cipherTextLocation) throws IOException {
+
+        /*
+        Method 3 (decodeString) -  outputs string of decoded message
+        Input (3) - ArrayList<Character> plainKey, ArrayList<Character> cipherKey, String cipherTextLocation
+        Returns - String
+        */
+
         int c;
         int indexOfElement;
         String decodedMessage = "";
@@ -178,9 +172,7 @@ public class FrequencyTable {
             }
 
 
-            System.out.println(lineByLine);
         }
-
 
 
         return decodedMessage;
