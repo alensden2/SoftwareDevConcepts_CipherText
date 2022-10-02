@@ -9,6 +9,10 @@ public class FrequencyTable {
     ArrayList<String> languageNames = new ArrayList<String>();
     ArrayList<Double> frequencySumPlainText = new ArrayList<Double>();
     ArrayList<Double> frequencySumCipherText = new ArrayList<Double>();
+    ArrayList<Character> plainTextKnown = new ArrayList<Character>();
+    ArrayList<Character> cipherTextKnown = new ArrayList<Character>();
+    HashMap<Character,Character> knowKeyFromConstructor = new HashMap<Character,Character>();
+    String knownNameFromConstructor = "";
 
     HashMap<Character, Double> frequencyTable(String fileName, String languageName, int a) throws IOException {
         /*
@@ -162,12 +166,33 @@ public class FrequencyTable {
         for (Map.Entry<Character, Double> map : currentFrequencyTableList) {
             currentFrequencyTable.put(map.getKey(), map.getValue());
         }
-
+        // move above
+        ArrayList<Double> frequencyTableValues = new ArrayList<Double>();
         // Map set
         for (Map.Entry<Character, Double> iterable : currentFrequencyTable.entrySet()) {
+            frequencyTableValues.add(iterable.getValue());
             frequencyDescOrder.add(iterable.getKey());
         }
+        System.out.println("freq-desc " + currentFrequencyTable);
 
+        // resolving special case 1 : when 2 or more characters have same frequency
+
+        ArrayList<Character> frequencyTableKeysSorted = new ArrayList<Character>();
+        ArrayList<Double> frequencyTableValueSorted = new ArrayList<Double>();
+
+        // storing all values in the array list
+
+        for (int i = 0; i < frequencyTableValues.size(); i++) {
+            // looping through the hash map
+            // case 1 : if the same value is present from the start
+            if (i == 0 && (frequencyTableValues.get(i) == frequencyTableValues.get(i + 1))) ;
+            {
+                // pushing the key and  in arraylist to be sorted
+
+            }
+        }
+        System.out.println(frequencyDescOrder);
+        System.out.println(frequencyTableValues);
         return frequencyDescOrder;
     }
 
@@ -208,5 +233,17 @@ public class FrequencyTable {
         int i;
         double minFrequency = Collections.min(frequencySumPlainText);
         return "";
+    }
+
+    String alreadyKnownKey(String fileName, HashMap<Character, Character> knownKey, String fileLocation) throws IOException {
+        String decodedString = "";
+        knowKeyFromConstructor = knownKey;
+        knownNameFromConstructor = fileName;
+        for(Map.Entry<Character,Character> iterable : knowKeyFromConstructor.entrySet()){
+            plainTextKnown.add(iterable.getKey());
+            cipherTextKnown.add(iterable.getValue());
+        }
+        decodedString = decodedString(plainTextKnown,cipherTextKnown,fileLocation);
+        return decodedString;
     }
 }

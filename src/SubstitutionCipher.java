@@ -13,9 +13,11 @@ public class SubstitutionCipher {
     String cipherTextLocation = null;
     String decodedString = null;
 
+    HashMap<Character, Character> knownKeyMap = new HashMap<Character, Character>();
+
     // map to store original language
     HashMap<String, HashMap<Character, Double>> originalLanguagesFrequency = new HashMap<String, HashMap<Character, Double>>();
-
+    String nameKnownString = "";
 
     // empty constructor
     SubstitutionCipher() {
@@ -23,8 +25,10 @@ public class SubstitutionCipher {
     }
 
     // params constructor
-    SubstitutionCipher(String name, Map<Character, Character> key) {
-
+    SubstitutionCipher(String nameParams, Map<Character, Character> keyParams) {
+        // iskeyValid called
+        knownKeyMap = (HashMap<Character, Character>) keyParams;
+        nameKnownString = nameParams;
     }
 
     // gives freq map for plainText
@@ -81,7 +85,7 @@ public class SubstitutionCipher {
                 // creation of FrequencyTable object, to create a frequency table
 
                 // linking the current obj to be decrypted
-                cipherTextFrequencyTable = frequencyTable.frequencyTable(fileName,"",1);
+                cipherTextFrequencyTable = frequencyTable.frequencyTable(fileName, "", 1);
 
                 // If returned hash map empty return false
                 if (cipherTextFrequencyTable.isEmpty()) {
@@ -105,20 +109,23 @@ public class SubstitutionCipher {
         Returns - String
         */
 
-        // exception to be handled
-
-        // if the key already present i.e sent by user using the constructor
-        /* INSERT CODE */
-
-        // if the user wish to modify the current key
-        /* INSERT CODE */
-
         // we have to generate the code from the 2 files
         Scanner sc = new Scanner(System.in);
         String languageName = "";
 
-        if (!currentPlainFrequencyTable.isEmpty() && !cipherTextFrequencyTable.isEmpty()) {
-            System.out.println("please enter the language file you wish to use for guessing the key");
+        // exception to be handled
+
+        // if the key already present i.e sent by user using the constructor
+        if ((!knownKeyMap.isEmpty() && !nameKnownString.isEmpty()) && (currentPlainFrequencyTable.isEmpty())) {
+            System.out.println("Key already present, provided by constructor");
+
+           decodedString = frequencyTable.alreadyKnownKey(nameKnownString, knownKeyMap, cipherTextLocation);
+        }
+
+
+        // if user is generating key using frequency table and no key was passed using the constructor
+        if ((!currentPlainFrequencyTable.isEmpty() && !cipherTextFrequencyTable.isEmpty()) && (knownKeyMap.isEmpty() && nameKnownString.isEmpty())) {
+            System.out.println("please enter the language file you wish to use for guessing the key (i.e String name - given with originalLanguage method)");
 
             // taking the key for the original languages map for getting the value hashMap
             languageName = sc.nextLine();
@@ -126,6 +133,17 @@ public class SubstitutionCipher {
 
 
             decodedString = frequencyTable.decodedString(plainTextKey, cipherTextKey, cipherTextLocation);
+        }
+
+        // If a key was passed through the constructor and a key can be generated
+        if ((!currentPlainFrequencyTable.isEmpty() && !cipherTextFrequencyTable.isEmpty()) && (!knownKeyMap.isEmpty() && !nameKnownString.isEmpty())) {
+            System.out.println("Two keys found");
+            return null;
+        }
+
+        // If no key was passed and no data exists to build a key
+        if ((currentPlainFrequencyTable.isEmpty() && cipherTextFrequencyTable.isEmpty()) && (knownKeyMap.isEmpty() && nameKnownString.isEmpty())) {
+            return null;
         }
         return decodedString;
     }
@@ -192,6 +210,13 @@ public class SubstitutionCipher {
             cipherTextKey = frequencyTable.getKeyFromFrequencies(cipherTextFrequencyTable);
 
         }
+        /*
+        System.out.println("plain text key" +  plainTextKey);
+        System.out.println("cipher text key" + cipherTextKey);
+        System.out.println("\n");
+        System.out.println("plain freq Table"+plainTextFrequencyTable);
+        System.out.println("cipher freq table"+cipherTextFrequencyTable);
+        */
         return false;
     }
 
