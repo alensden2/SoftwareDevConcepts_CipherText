@@ -40,7 +40,7 @@ public class SubstitutionCipher {
         if (name != null && fileName != null) {
             if (name != "" && fileName != "") {
                 FrequencyTable FrequencyTable = new FrequencyTable();
-                currentPlainFrequencyTable = FrequencyTable.frequencyTable(fileName);
+                currentPlainFrequencyTable = FrequencyTable.frequencyTable(fileName, name, 0);  // 0 for original language
 
                 // stored the current frequency table in the original languages map
                 originalLanguagesFrequency.put(name, currentPlainFrequencyTable);
@@ -81,7 +81,7 @@ public class SubstitutionCipher {
                 FrequencyTable FrequencyTable = new FrequencyTable();
 
                 // linking the current obj to be decrypted
-                cipherTextFrequencyTable = FrequencyTable.frequencyTable(fileName);
+                cipherTextFrequencyTable = FrequencyTable.frequencyTable(fileName,"",1);
 
                 // If returned hash map empty return false
                 if (cipherTextFrequencyTable.isEmpty()) {
@@ -203,10 +203,13 @@ public class SubstitutionCipher {
         Returns - Boolean
         */
 
+        FrequencyTable frequencyTable = new FrequencyTable();
+        String matchedLanguage = frequencyTable.matchLanguagePercentage();
+
+
         // all exceptions to handled
 
-        String langNameCoded = "";
-        return langNameCoded;
+        return matchedLanguage;
     }
 
 }

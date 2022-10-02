@@ -6,7 +6,11 @@ import java.util.Comparator;
 
 public class FrequencyTable {
 
-    HashMap<Character, Double> frequencyTable(String fileName) throws IOException {
+    ArrayList<String> languageNames = new ArrayList<String>();
+    ArrayList<Double> frequencySumPlainText = new ArrayList<Double>();
+    ArrayList<Double> frequencySumCipherText = new ArrayList<Double>();
+
+    HashMap<Character, Double> frequencyTable(String fileName, String languageName, int a) throws IOException {
         /*
         Method 1 (frequencyTable) -  outputs frequency table for given file directory
         Input (1) - String fileName
@@ -16,10 +20,11 @@ public class FrequencyTable {
 
         // Local variables
         HashMap<Character, Double> charFrequencyTable = new HashMap<Character, Double>();
+        HashMap<Character, Double> charFrequencyTablePercentage = new HashMap<Character, Double>();
 
         double newValue = 0;
         double totalFrequencyText = 0;
-        double newValueFreq = 0;
+        double totalFrequencyPercentage = 0;
 
         // Reading File
         File filePath = new File(fileName);
@@ -61,11 +66,31 @@ public class FrequencyTable {
 
             }
 
+            // total sum of frequency of all char
             for (Map.Entry<Character, Double> setFreqTable : charFrequencyTable.entrySet()) {
                 Double frequencyValue = setFreqTable.getValue();
                 totalFrequencyText += frequencyValue;
             }
 
+            // percentage frequency table of a language
+            for (Character key : charFrequencyTable.keySet()) {
+                charFrequencyTablePercentage.put(key, (double) ((charFrequencyTable.get(key) / totalFrequencyText) * 100));
+            }
+
+            // looping through to find the summation of values
+            for (Map.Entry<Character, Double> percentageSet : charFrequencyTablePercentage.entrySet()) {
+                Double frequencyPercentage = percentageSet.getValue();
+                totalFrequencyPercentage += frequencyPercentage;
+            }
+
+            // when a is zero plainText is being added.
+            if (a == 0) {
+                languageNames.add(languageName);
+                frequencySumPlainText.add(totalFrequencyPercentage);
+
+            } else if (a == 1) {
+                frequencySumCipherText.add(totalFrequencyPercentage);
+            }
 
         }
         //}
@@ -176,5 +201,11 @@ public class FrequencyTable {
 
 
         return decodedMessage;
+    }
+
+    String matchLanguagePercentage() {
+        int i;
+        double minFrequency = Collections.min(frequencySumPlainText);
+        return "";
     }
 }
