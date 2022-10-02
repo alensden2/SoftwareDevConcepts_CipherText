@@ -112,6 +112,7 @@ public class FrequencyTable {
             System.out.println("File Path invalid, please avoid space and include '//' in path ex- //home//cynos//IdeaProjects//Assignment1-cipherToPlainText//src//cipher.txt");
             System.out.println(filePath.exists());
         }
+        //System.out.println("freqSumPlainText"+frequencySumPlainText);System.out.println("cipher"+frequencySumCipherText);System.out.println("langNames"+languageNames);
         return charFrequencyTable;
 
     }

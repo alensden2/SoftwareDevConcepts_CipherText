@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.util.*;
 
 public class SubstitutionCipher {
+    // Helper class initialized
+    FrequencyTable frequencyTable = new FrequencyTable();
     HashMap<Character, Double> plainTextFrequencyTable = new HashMap<Character, Double>();
     HashMap<Character, Double> currentPlainFrequencyTable = new HashMap<Character, Double>();
     String languageName = null;
@@ -11,7 +13,7 @@ public class SubstitutionCipher {
     String cipherTextLocation = null;
     String decodedString = null;
 
-    // map to store original lang
+    // map to store original language
     HashMap<String, HashMap<Character, Double>> originalLanguagesFrequency = new HashMap<String, HashMap<Character, Double>>();
 
 
@@ -39,8 +41,7 @@ public class SubstitutionCipher {
 
         if (name != null && fileName != null) {
             if (name != "" && fileName != "") {
-                FrequencyTable FrequencyTable = new FrequencyTable();
-                currentPlainFrequencyTable = FrequencyTable.frequencyTable(fileName, name, 0);  // 0 for original language
+                currentPlainFrequencyTable = frequencyTable.frequencyTable(fileName, name, 0);  // 0 for original language
 
                 // stored the current frequency table in the original languages map
                 originalLanguagesFrequency.put(name, currentPlainFrequencyTable);
@@ -78,10 +79,9 @@ public class SubstitutionCipher {
                 cipherTextLocation = fileName;
 
                 // creation of FrequencyTable object, to create a frequency table
-                FrequencyTable FrequencyTable = new FrequencyTable();
 
                 // linking the current obj to be decrypted
-                cipherTextFrequencyTable = FrequencyTable.frequencyTable(fileName,"",1);
+                cipherTextFrequencyTable = frequencyTable.frequencyTable(fileName,"",1);
 
                 // If returned hash map empty return false
                 if (cipherTextFrequencyTable.isEmpty()) {
@@ -123,9 +123,9 @@ public class SubstitutionCipher {
             // taking the key for the original languages map for getting the value hashMap
             languageName = sc.nextLine();
             guessKeyFromFrequencies(languageName);
-            FrequencyTable FrequencyTable = new FrequencyTable();
 
-            decodedString = FrequencyTable.decodedString(plainTextKey, cipherTextKey, cipherTextLocation);
+
+            decodedString = frequencyTable.decodedString(plainTextKey, cipherTextKey, cipherTextLocation);
         }
         return decodedString;
     }
@@ -184,7 +184,6 @@ public class SubstitutionCipher {
         // all exceptions to handled
 
         if (!currentPlainFrequencyTable.isEmpty() && !cipherTextFrequencyTable.isEmpty()) {
-            FrequencyTable frequencyTable = new FrequencyTable();
 
             // returns the required frequency table
             plainTextFrequencyTable = originalLanguagesFrequency.get(language);
@@ -203,7 +202,6 @@ public class SubstitutionCipher {
         Returns - Boolean
         */
 
-        FrequencyTable frequencyTable = new FrequencyTable();
         String matchedLanguage = frequencyTable.matchLanguagePercentage();
 
 
