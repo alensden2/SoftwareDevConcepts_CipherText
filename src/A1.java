@@ -16,33 +16,33 @@ public class A1 {
 
 
         // initialising a knownKey -
-        HashMap<Character,Character> key = new HashMap<Character,Character>();
-        key.put('a','z');
-        key.put('b','y');
-        key.put('c','x');
-        key.put('d','w');
-        key.put('e','v');
-        key.put('f','u');
-        key.put('g','t');
-        key.put('h','s');
-        key.put('i','r');
-        key.put('j','q');
-        key.put('k','p');
-        key.put('l','o');
-        key.put('m','n');
-        key.put('n','m');
-        key.put('o','l');
-        key.put('p','k');
-        key.put('q','j');
-        key.put('r','i');
-        key.put('s','h');
-        key.put('t','g');
-        key.put('u','f');
-        key.put('v','e');
-        key.put('w','d');
-        key.put('x','c');
-        key.put('y','b');
-        key.put('z','a');
+        HashMap<Character, Character> key = new HashMap<Character, Character>();
+        key.put('a', 'z');
+        key.put('b', 'y');
+        key.put('c', 'x');
+        key.put('d', 'w');
+        key.put('e', 'v');
+        key.put('f', 'u');
+        key.put('g', 't');
+        key.put('h', 's');
+        key.put('i', 'r');
+        key.put('j', 'q');
+        key.put('k', 'p');
+        key.put('l', 'o');
+        key.put('m', 'n');
+        key.put('n', 'm');
+        key.put('o', 'l');
+        key.put('p', 'k');
+        key.put('q', 'j');
+        key.put('r', 'i');
+        key.put('s', 'h');
+        key.put('t', 'g');
+        key.put('u', 'f');
+        key.put('v', 'e');
+        key.put('w', 'd');
+        key.put('x', 'c');
+        key.put('y', 'b');
+        key.put('z', 'a');
 
         // Creation of object of type SubstitutionCipher()
         //SubstitutionCipher substitutionCipher = new SubstitutionCipher("english", key);
@@ -63,12 +63,15 @@ public class A1 {
         //testing rig ---- remove
 
         // Calling originalLanguage function for both language
-       substitutionCipher.originalLanguage("lang A", plainTextPath1);
+        substitutionCipher.originalLanguage("lang A", plainTextPath1);
         substitutionCipher.originalLanguage("lang B", plainTextPath2);
 
         // Calling ciphertext method for the cipher file
         substitutionCipher.ciphertext(cipherTextPath);
-        substitutionCipher.decodeText();
-        substitutionCipher.getKey();
+        System.out.println(substitutionCipher.decodeText());
+        System.out.println(substitutionCipher.guessKeyFromFrequencies("lang A"));
+        System.out.println(substitutionCipher.KeyIsValid());
+        System.out.println(substitutionCipher.getKey());
+
     }
 }

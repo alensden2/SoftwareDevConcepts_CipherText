@@ -137,8 +137,9 @@ public class SubstitutionCipher {
 
         // If a key was passed through the constructor and a key can be generated
         if ((!currentPlainFrequencyTable.isEmpty() && !cipherTextFrequencyTable.isEmpty()) && (!knownKeyMap.isEmpty() && !nameKnownString.isEmpty())) {
-            System.out.println("Two keys found");
-            return null;
+            System.out.println("Two keys found user defined key is active now");
+            decodedString = frequencyTable.alreadyKnownKey(nameKnownString, knownKeyMap, cipherTextLocation);
+            return decodedString;
         }
 
         // If no key was passed and no data exists to build a key
@@ -156,6 +157,31 @@ public class SubstitutionCipher {
         Input (2) - char plaintextChar, char ciphertextChar
         Returns - Boolean
         */
+
+        // all entries are converted to lowercase
+        Character plainTextValue = plaintextChar;
+        Character cipherTextValue = ciphertextChar;
+        plainTextValue = Character.toLowerCase(plainTextValue);
+        cipherTextValue = Character.toLowerCase((cipherTextValue));
+
+        // For a mapping to be valid the new map character must be in the plain text frequency
+        if (!plainTextKey.contains(plainTextValue) && !cipherTextKey.contains(cipherTextValue)) {
+            plainTextKey.add(plainTextValue);
+            cipherTextKey.add(cipherTextValue);
+            // For a valid mapping that has already been mapped setDecode will update the current mapping
+        } else if (plainTextKey.contains(plainTextValue) && cipherTextKey.contains(cipherTextValue)) {
+            int indexPlainChar = plainTextKey.indexOf(plainTextKey);
+            int indexCipherChar = cipherTextKey.indexOf(ciphertextChar);
+            // updating the values
+            plainTextKey.set(indexPlainChar, plainTextValue);
+            cipherTextKey.set(indexCipherChar, cipherTextValue);
+        }
+
+
+        // If ciphertext char is not already there, this method add a new entry to the key
+
+        // If ciphertext is already present the add method will replace the existing entry
+
 
         // all exceptions to handled
 
@@ -178,7 +204,7 @@ public class SubstitutionCipher {
         // all exceptions to handled
 
         Map<Character, Character> currentKey = new HashMap<Character, Character>();
-        System.out.println(frequencyTable.getAllKeys(knownKeyMap, plainTextKey, cipherTextKey));
+
         return currentKey;
     }
 
@@ -190,9 +216,17 @@ public class SubstitutionCipher {
         Returns - Boolean
         */
 
+        Set<Character> plainTextSet = plainTextFrequencyTable.keySet();
+        Set<Character> cipherTextSet = cipherTextFrequencyTable.keySet();
+
+        if ((cipherTextSet.size() <= plainTextSet.size())) {
+            return true;
+        } else {
+            return false;
+        }
+
         // all exceptions to handled
 
-        return true;
     }
 
     // makes custom key from matching the freq tables
@@ -205,6 +239,7 @@ public class SubstitutionCipher {
         Returns - Boolean
         */
 
+
         // all exceptions to handled
 
         if (!currentPlainFrequencyTable.isEmpty() && !cipherTextFrequencyTable.isEmpty()) {
@@ -215,6 +250,8 @@ public class SubstitutionCipher {
             plainTextKey = frequencyTable.getKeyFromFrequencies(plainTextFrequencyTable);
             cipherTextKey = frequencyTable.getKeyFromFrequencies(cipherTextFrequencyTable);
 
+            return true;
+
         }
         /*
         System.out.println("plain text key" +  plainTextKey);
@@ -223,7 +260,9 @@ public class SubstitutionCipher {
         System.out.println("plain freq Table"+plainTextFrequencyTable);
         System.out.println("cipher freq table"+cipherTextFrequencyTable);
         */
-        return false;
+        else {
+            return false;
+        }
     }
 
     String matchLanguage() {

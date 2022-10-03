@@ -173,7 +173,6 @@ public class FrequencyTable {
             frequencyTableValues.add(iterable.getValue());
             frequencyDescOrder.add(iterable.getKey());
         }
-        System.out.println("freq-desc " + currentFrequencyTable);
 
         // resolving special case 1 : when 2 or more characters have same frequency
 
@@ -191,8 +190,6 @@ public class FrequencyTable {
 
             }
         }
-        System.out.println(frequencyDescOrder);
-        System.out.println(frequencyTableValues);
         return frequencyDescOrder;
     }
 
@@ -247,21 +244,25 @@ public class FrequencyTable {
         return decodedString;
     }
 
-    //HashMap<Character, Character>
-    String getAllKeys(HashMap<Character, Character> originalKey, ArrayList<Character> plainChar, ArrayList<Character> cipherChar) {
-        HashMap<Character, Character> currentKey = new HashMap<>();
+    //
+    HashMap<Character, Character> getAllKeys(HashMap<Character, Character> originalKey, ArrayList<Character> plainChar, ArrayList<Character> cipherChar) {
+
+        // The current derived key will store the key obtained from guessKeyFromFrequencies
+        HashMap<Character, Character> currentDerivedKey = new HashMap<>();
+        // This map contains the key if passed in the constructor
         HashMap<Character, Character> keyFromConstructor = originalKey;
         ArrayList<Character> plainTextMapping = plainChar;
         ArrayList<Character> cipherTextMapping = cipherChar;
 
-        if (!keyFromConstructor.isEmpty() && (!plainTextMapping.isEmpty())) {
-            return "Both key present";
-        } else if (!keyFromConstructor.isEmpty()) {
-            return "Const key acive";
+        if (!keyFromConstructor.isEmpty()) {
+            return keyFromConstructor;
         } else if (!plainTextMapping.isEmpty()) {
-            return "selfmade key";
+            for (int i = 0; i < cipherTextKnown.size(); i++) {
+                currentDerivedKey.put(plainChar.get(i), cipherChar.get(i));
+            }
+            return currentDerivedKey;
         } else {
-            return "";
+            return null;
         }
     }
 }
