@@ -68,6 +68,7 @@ public class A1 {
 
         // Calling ciphertext method for the cipher file
         substitutionCipher.ciphertext(cipherTextPath);
-        System.out.println(substitutionCipher.decodeText());
+        substitutionCipher.decodeText();
+        substitutionCipher.getKey();
     }
 }

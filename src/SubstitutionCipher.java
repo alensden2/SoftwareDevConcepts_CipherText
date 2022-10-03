@@ -119,7 +119,7 @@ public class SubstitutionCipher {
         if ((!knownKeyMap.isEmpty() && !nameKnownString.isEmpty()) && (currentPlainFrequencyTable.isEmpty())) {
             System.out.println("Key already present, provided by constructor");
 
-           decodedString = frequencyTable.alreadyKnownKey(nameKnownString, knownKeyMap, cipherTextLocation);
+            decodedString = frequencyTable.alreadyKnownKey(nameKnownString, knownKeyMap, cipherTextLocation);
         }
 
 
@@ -159,6 +159,11 @@ public class SubstitutionCipher {
 
         // all exceptions to handled
 
+//        if () {
+//        } else if () {
+//
+//        }
+
         return true;
     }
 
@@ -173,6 +178,7 @@ public class SubstitutionCipher {
         // all exceptions to handled
 
         Map<Character, Character> currentKey = new HashMap<Character, Character>();
+        System.out.println(frequencyTable.getAllKeys(knownKeyMap, plainTextKey, cipherTextKey));
         return currentKey;
     }
 

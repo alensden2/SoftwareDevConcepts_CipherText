@@ -11,7 +11,7 @@ public class FrequencyTable {
     ArrayList<Double> frequencySumCipherText = new ArrayList<Double>();
     ArrayList<Character> plainTextKnown = new ArrayList<Character>();
     ArrayList<Character> cipherTextKnown = new ArrayList<Character>();
-    HashMap<Character,Character> knowKeyFromConstructor = new HashMap<Character,Character>();
+    HashMap<Character, Character> knowKeyFromConstructor = new HashMap<Character, Character>();
     String knownNameFromConstructor = "";
 
     HashMap<Character, Double> frequencyTable(String fileName, String languageName, int a) throws IOException {
@@ -239,11 +239,29 @@ public class FrequencyTable {
         String decodedString = "";
         knowKeyFromConstructor = knownKey;
         knownNameFromConstructor = fileName;
-        for(Map.Entry<Character,Character> iterable : knowKeyFromConstructor.entrySet()){
+        for (Map.Entry<Character, Character> iterable : knowKeyFromConstructor.entrySet()) {
             plainTextKnown.add(iterable.getKey());
             cipherTextKnown.add(iterable.getValue());
         }
-        decodedString = decodedString(plainTextKnown,cipherTextKnown,fileLocation);
+        decodedString = decodedString(plainTextKnown, cipherTextKnown, fileLocation);
         return decodedString;
+    }
+
+    //HashMap<Character, Character>
+    String getAllKeys(HashMap<Character, Character> originalKey, ArrayList<Character> plainChar, ArrayList<Character> cipherChar) {
+        HashMap<Character, Character> currentKey = new HashMap<>();
+        HashMap<Character, Character> keyFromConstructor = originalKey;
+        ArrayList<Character> plainTextMapping = plainChar;
+        ArrayList<Character> cipherTextMapping = cipherChar;
+
+        if (!keyFromConstructor.isEmpty() && (!plainTextMapping.isEmpty())) {
+            return "Both key present";
+        } else if (!keyFromConstructor.isEmpty()) {
+            return "Const key acive";
+        } else if (!plainTextMapping.isEmpty()) {
+            return "selfmade key";
+        } else {
+            return "";
+        }
     }
 }
